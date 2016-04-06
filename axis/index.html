@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>body { margin: 0; }</style>
+</head>
+<body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r75/three.js"></script>
+	<script>
+////////////////////////////////////////////////////
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(
+	75,
+	window.innerWidth / window.innerHeight,
+	0.1,
+	2000
+);
+camera.position.set(5, 5, 5);
+camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+var xmat = new THREE.LineBasicMaterial({ color: 0xff0000 });
+var ymat = new THREE.LineBasicMaterial({ color: 0x00ff00 });
+var zmat = new THREE.LineBasicMaterial({ color: 0x0000ff });
+
+var xgeo = new THREE.Geometry();
+xgeo.vertices.push(
+  new THREE.Vector3(-5, 0, 0),
+  new THREE.Vector3(5, 0, 0),
+  new THREE.Vector3(4.8, 0.2, 0)
+);
+var ygeo = new THREE.Geometry();
+ygeo.vertices.push(
+  new THREE.Vector3(0, -5, 0),
+  new THREE.Vector3(0, 5, 0),
+  new THREE.Vector3(0.2, 4.8, 0)
+);
+var zgeo = new THREE.Geometry();
+zgeo.vertices.push(
+  new THREE.Vector3(0, 0, -5),
+  new THREE.Vector3(0, 0, 5),
+  new THREE.Vector3(0, 0.2, 4.8)
+);
+
+var xline = new THREE.Line(xgeo, xmat);
+var yline = new THREE.Line(ygeo, ymat);
+var zline = new THREE.Line(zgeo, zmat);
+
+scene.add(xline);
+scene.add(yline);
+scene.add(zline);
+
+var renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 1);
+document.body.appendChild(renderer.domElement);
+renderer.render(scene, camera);
+////////////////////////////////////////////////////
+	</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>body { margin: 0; }</style>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r75/three.js"></script>
+<script>
+////////////////////////////////////////////////////
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(
+	90, // Camera frustum vertical field of view.
+	window.innerWidth / window.innerHeight, // Camera frustum aspect ratio.
+	5, // Camera frustum near plane.
+	5000 // Camera frustum far plane.
+);
+
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+var geometry = new THREE.BoxGeometry(500, 500, 500, 1, 1, 3);
+
+// 環境光
+// var light = new THREE.AmbientLight(0x666666);
+
+// 點光源
+var light = new THREE.PointLight(
+	0xffffff, // Numeric value of the RGB component of the color.
+	2, // Numeric value of the light's strength/intensity.
+	700 // The distance of the light where the intensity is 0. When distance is 0, then the distance is endless.
+);
+
+// 平行光源
+// var light = new THREE.DirectionalLight();
+
+light.position.set(0, 1, 700);
+scene.add(light);
+
+var material = new THREE.MeshLambertMaterial({ color: 0xffffff });
+
+var cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+camera.position.z = 800;
+
+render();
+
+function update() {
+	cube.rotation.x += 0.01;
+	cube.rotation.y += 0.01;
+}
+
+function render() {
+	requestAnimationFrame(render);
+	update();
+	renderer.render(scene, camera);
+}
+////////////////////////////////////////////////////
+</script>
+</body>
+</html>

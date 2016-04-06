@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>body { margin: 0; }</style>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r75/three.js"></script>
+<script src="three.js/examples/js/loaders/VRMLLoader.js"></script>
+<script>
+////////////////////////////////////////////////////
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(
+	90, // Camera frustum vertical field of view.
+	window.innerWidth / window.innerHeight, // Camera frustum aspect ratio.
+	5, // Camera frustum near plane.
+	5000 // Camera frustum far plane.
+);
+
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+var loader = new THREE.VRMLLoader();
+loader.crossOrigin = '';
+loader.load('totoro.wrl', function (object) {
+  scene.add(object);
+});
+
+function update() {
+
+}
+
+function render() {
+	requestAnimationFrame(render);
+	update();
+	renderer.render(scene, camera);
+}
+
+render();
+////////////////////////////////////////////////////
+</script>
+</body>
+</html>
